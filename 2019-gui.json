@@ -1,0 +1,62 @@
+{
+  "variables": {
+    "autounattend": "./floppy_files/2019-gui/answer_files/autounattend.xml",
+    "disk_size": "61440",
+    "disk_type_id": "1",
+    "headless": "false",
+    "iso_checksum_type": "none",
+    "iso_url": "./ISO/Windows Server 2019.iso",
+    "restart_timeout": "5m",
+    "winrm_timeout": "2h"
+  },
+
+  "provisioners": [
+    {
+        "execute_command": "{{ .Vars }} cmd /c \"{{ .Path }}\"",
+        "scripts": [
+          "./floppy_files/2019-gui/scripts/vm-guest-tools.bat"
+        ],
+        "type": "windows-shell"
+      }
+  ],
+
+  "post-processors": [
+
+  ],
+
+  "builders": [
+    {
+    "boot_wait": "2m",
+    "communicator": "winrm",
+    "cpus": 2,
+    "disk_adapter_type": "lsisas1068",
+    "disk_size": "{{user `disk_size`}}",
+    "disk_type_id": "{{user `disk_type_id`}}",
+    "floppy_files": [
+        "{{user `autounattend`}}",
+        "./floppy_files/2019-gui/scripts/sysprep.bat",
+        "./floppy_files/2019-gui/scripts/enable-winrm.ps1",
+        "./floppy_files/2019-gui/answer_files/unattend.xml"
+    ],
+    "guest_os_type": "windows9srv-64",
+    "headless": "{{user `headless`}}",
+    "iso_checksum_type": "{{user `iso_checksum_type`}}",
+    "iso_url": "{{user `iso_url`}}",
+    "memory": 2048,
+    "shutdown_command": "a:/sysprep.bat",
+    "type": "vmware-iso",
+    "version": 15,
+    "vm_name": "2019-gui",
+    "vmx_data": {
+        "RemoteDisplay.vnc.enabled": "false",
+        "RemoteDisplay.vnc.port": "5900"
+    },
+    "vmx_remove_ethernet_interfaces": true,
+    "vnc_port_max": 5980,
+    "vnc_port_min": 5900,
+    "winrm_password": "ansible",
+    "winrm_timeout": "{{user `winrm_timeout`}}",
+    "winrm_username": "ansible"
+    }
+  ]
+}
