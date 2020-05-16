@@ -1,6 +1,6 @@
 {
   "variables": {
-    "autounattend": "./floppy_files/2019-gui/answer_files/autounattend.xml",
+    "autounattend": "./floppy_files/Windows-Server-2019-Template/answer_files/autounattend.xml",
     "disk_size": "61440",
     "disk_type_id": "0",
     "headless": "false",
@@ -8,14 +8,14 @@
     "iso_url": "./ISO/Windows Server 2019.iso",
     "restart_timeout": "5m",
     "winrm_timeout": "2h",
-    "output_directory": "E:/Virtual Machine Templates/2019-GUI-Template"
+    "output_directory": "./template-builds/Windows-Server-2019-Template"
   },
 
   "provisioners": [
     {
         "execute_command": "{{ .Vars }} cmd /c \"{{ .Path }}\"",
         "scripts": [
-          "./floppy_files/2019-gui/scripts/vm-guest-tools.bat"
+          "./floppy_files/Windows-Server-2019-Template/scripts/vm-guest-tools.bat"
         ],
         "type": "windows-shell"
       }
@@ -35,10 +35,10 @@
     "disk_type_id": "{{user `disk_type_id`}}",
     "floppy_files": [
         "{{user `autounattend`}}",
-        "./floppy_files/2019-gui/scripts/sysprep.bat",
-        "./floppy_files/2019-gui/scripts/enable-winrm.ps1",
-        "./floppy_files/2019-gui/answer_files/unattend.xml",
-        "./floppy_files/2019-gui/scripts/ConfigureRemotingForAnsible.ps1"
+        "./floppy_files/Windows-Server-2019-Template/scripts/sysprep.bat",
+        "./floppy_files/Windows-Server-2019-Template/scripts/enable-winrm.ps1",
+        "./floppy_files/Windows-Server-2019-Template/answer_files/unattend.xml",
+        "./floppy_files/Windows-Server-2019-Template/scripts/ConfigureRemotingForAnsible.ps1"
     ],
     "guest_os_type": "windows9srv-64",
     "headless": "{{user `headless`}}",
@@ -48,7 +48,7 @@
     "shutdown_command": "a:/sysprep.bat",
     "type": "vmware-iso",
     "version": 16,
-    "vm_name": "2019-GUI-Template",
+    "vm_name": "Windows-Server-2019-Template",
     "output_directory": "{{user `output_directory`}}",
     "vmx_data": {
         "RemoteDisplay.vnc.enabled": "false",
@@ -57,7 +57,7 @@
         "vpmc.enable": "TRUE"
     },
     "vmx_remove_ethernet_interfaces": false,
-    "display_name": "2019-GUI-Template",
+    "display_name": "Windows-Server-2019-Template",
     "vnc_port_max": 5980,
     "vnc_port_min": 5900,
     "winrm_password": "ansible",
