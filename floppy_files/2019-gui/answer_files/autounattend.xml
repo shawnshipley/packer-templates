@@ -169,6 +169,11 @@
                     <Order>10</Order>
                     <Description>Disable password expiration for ansible user</Description>
                 </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\ConfigureRemotingForAnsible.ps1</CommandLine>
+                    <Description>Configure WinRM for Ansible</Description>
+                    <Order>11</Order>
+                </SynchronousCommand>
                 <!-- WITHOUT WINDOWS UPDATES -->
                 
                 <SynchronousCommand wcm:action="add">
