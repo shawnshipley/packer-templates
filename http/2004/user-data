@@ -2,7 +2,7 @@
 autoinstall:
   version: 1
   identity:
-    hostname: template
+    hostname: ubuntu-server
     password: '$6$97aLcODn6XyCTr6R$UjbY3i3uS8RcTIPr0ylJKjgX3KG0fiYeL/H8SdckqOaceR0debKyNjjFKA7sahL5LCA3rDzENAgsmkpEEcuMr1'
     username: ansible
   network:

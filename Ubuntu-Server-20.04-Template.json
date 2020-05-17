@@ -53,7 +53,7 @@
       "./linux/ubuntu/update.sh",
       "./linux/ubuntu/network.sh",
       "./linux/common/vmware.sh",
-      "./linux/common/vagrant.sh",
+      "./linux/common/ansible.sh",
       "./linux/common/motd.sh",
       "./linux/ubuntu/cleanup.sh"
     ]
