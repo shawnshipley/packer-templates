@@ -1,0 +1,18 @@
+#cloud-config
+autoinstall:
+  version: 1
+  identity:
+    hostname: template
+    password: '$6$97aLcODn6XyCTr6R$UjbY3i3uS8RcTIPr0ylJKjgX3KG0fiYeL/H8SdckqOaceR0debKyNjjFKA7sahL5LCA3rDzENAgsmkpEEcuMr1'
+    username: ansible
+  network:
+    network:
+      version: 2
+      ethernets:
+        ens33: {dhcp4: true, dhcp-identifier: mac}
+  ssh:
+    install-server: true
+  late-commands:
+    - sed -i 's/^#*\(send dhcp-client-identifier\).*$/\1 = hardware;/' /target/etc/dhcp/dhclient.conf
+    - 'sed -i "s/dhcp4: true/&\n      dhcp-identifier: mac/" /target/etc/netplan/00-installer-config.yaml'
+

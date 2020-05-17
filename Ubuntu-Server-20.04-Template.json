@@ -1,0 +1,64 @@
+{
+  "variables": {
+    "vm_name": "Ubuntu-Server-20.04-Template",
+    "ram_size": "2048",
+    "disk_size": "21440",
+	"disk_type_id": "0",
+    "iso_url": "./ISO/ubuntu-20.04-live-server-amd64.iso",
+    "iso_checksum_type": "none",
+    "username" : "ansible",
+    "password" : "ansible",
+	"output_directory": "./template-builds/Ubuntu-Server-20.04-Template"
+  },  
+  "builders": [
+  {
+    "vm_name":"{{user `vm_name`}}",
+    "type": "vmware-iso",
+    "boot_wait": "5s",
+	
+    "cpus": 2,
+    "disk_adapter_type": "lsisas1068",
+    "disk_size": "{{user `disk_size`}}",
+    "disk_type_id": "{{user `disk_type_id`}}",
+	"version": 16,
+	"memory": 2048,
+	
+    "http_directory": "./http/",
+    "guest_os_type": "ubuntu-64",
+	"output_directory": "{{user `output_directory`}}",
+    "headless": false,
+    "iso_url": "{{user `iso_url`}}",
+    "iso_checksum_type": "{{user `iso_checksum_type`}}",
+    "communicator":"ssh",
+    "ssh_username": "{{user `username`}}",
+    "ssh_password": "{{user `password`}}",
+	"ssh_handshake_attempts": "50",
+    "ssh_timeout": "4h",
+    "boot_command": [
+        "<enter><enter><f6><esc><wait> ",
+        "autoinstall ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/2004/",
+        "<enter>"
+      ],  
+    "shutdown_command": "echo 'ansible' | sudo -S -E shutdown -P now",
+    "skip_compaction": false,
+    "vmx_data": {
+	  "vhv.enable": "TRUE",
+      "vpmc.enable": "TRUE"
+    }
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "execute_command": "echo 'ansible' | sudo -S -E sh {{.Path}}",
+    "scripts": [
+      "./linux/ubuntu/update.sh",
+      "./linux/ubuntu/network.sh",
+      "./linux/common/vmware.sh",
+      "./linux/common/vagrant.sh",
+      "./linux/common/motd.sh",
+      "./linux/ubuntu/cleanup.sh"
+    ]
+  }],
+  "post-processors": [
+
+  ]
+}
