@@ -168,23 +168,37 @@
                     <CommandLine>cmd.exe /c wmic useraccount where "name='ansible'" set PasswordExpires=FALSE</CommandLine>
                     <Order>10</Order>
                     <Description>Disable password expiration for ansible user</Description>
+                </SynchronousCommand>               
+                <!--
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c a:\microsoft-updates.bat</CommandLine>
+                    <Order>11</Order>
+                    <Description>Enable Microsoft Updates</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\win-updates.ps1</CommandLine>
+                    <Description>Install Windows Updates</Description>
+                    <Order>12</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+                -->
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\disable-screensaver.ps1</CommandLine>
+                    <Description>Disable Screensaver</Description>
+                    <Order>13</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\ConfigureRemotingForAnsible.ps1</CommandLine>
                     <Description>Configure WinRM for Ansible</Description>
-                    <Order>11</Order>
+                    <Order>14</Order>
                 </SynchronousCommand>
-                <!-- WITHOUT WINDOWS UPDATES -->
-                
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\enable-winrm.ps1</CommandLine>
                     <Description>Enable WinRM</Description>
-                    <Order>99</Order>
+                    <Order>15</Order>
                 </SynchronousCommand>
-                
-                <!-- END WITHOUT WINDOWS UPDATES -->
-                <!-- WITH WINDOWS UPDATES -->
-                <!-- END WITH WINDOWS UPDATES -->
+            
             </FirstLogonCommands>
             <OOBE>
                 <HideEULAPage>true</HideEULAPage>

@@ -6,7 +6,7 @@
     "headless": "false",
     "iso_checksum_type": "none",
     "iso_url": "./ISO/Windows Server 2019.iso",
-    "restart_timeout": "5m",
+    "restart_timeout": "30m",
     "winrm_timeout": "2h",
     "output_directory": "./template-builds/Windows-Server-2019-Template"
   },
@@ -15,7 +15,8 @@
     {
         "execute_command": "{{ .Vars }} cmd /c \"{{ .Path }}\"",
         "scripts": [
-          "./floppy_files/Windows-Server-2019-Template/scripts/vm-guest-tools.bat"
+          "./floppy_files/Windows-Server-2019-Template/scripts/vm-guest-tools.bat",
+          "./floppy_files/Windows-Server-2019-Template/scripts/enable-rdp.bat"
         ],
         "type": "windows-shell"
       }
@@ -38,7 +39,11 @@
         "./floppy_files/Windows-Server-2019-Template/scripts/sysprep.bat",
         "./floppy_files/Windows-Server-2019-Template/scripts/enable-winrm.ps1",
         "./floppy_files/Windows-Server-2019-Template/answer_files/unattend.xml",
-        "./floppy_files/Windows-Server-2019-Template/scripts/ConfigureRemotingForAnsible.ps1"
+        "./floppy_files/Windows-Server-2019-Template/scripts/ConfigureRemotingForAnsible.ps1",
+        "./floppy_files/Windows-Server-2019-Template/scripts/disable-screensaver.ps1",
+        "./floppy_files/Windows-Server-2019-Template/scripts/enable-rdp.bat",
+        "./floppy_files/Windows-Server-2019-Template/scripts/microsoft-updates.bat",
+        "./floppy_files/Windows-Server-2019-Template/scripts/win-updates.ps1"
     ],
     "guest_os_type": "windows9srv-64",
     "headless": "{{user `headless`}}",
