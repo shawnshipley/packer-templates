@@ -1,0 +1,73 @@
+{
+  "variables": {
+    "autounattend": "./floppy_files/Windows-10-Template/answer_files/autounattend.xml",
+    "disk_size": "61440",
+    "disk_type_id": "0",
+    "headless": "false",
+    "iso_checksum_type": "none",
+    "iso_url": "./ISO/Windows 10.iso",
+    "restart_timeout": "30m",
+    "winrm_timeout": "2h",
+    "output_directory": "./template-builds/Windows-10-Template"
+  },
+
+  "provisioners": [
+    {
+        "execute_command": "{{ .Vars }} cmd /c \"{{ .Path }}\"",
+        "scripts": [
+          "./floppy_files/Windows-10-Template/scripts/vm-guest-tools.bat",
+          "./floppy_files/Windows-10-Template/scripts/enable-rdp.bat"
+        ],
+        "type": "windows-shell"
+      }
+  ],
+
+  "post-processors": [
+
+  ],
+
+  "builders": [
+    {
+    "boot_wait": "2m",
+    "communicator": "winrm",
+    "cpus": 2,
+    "disk_adapter_type": "lsisas1068",
+    "disk_size": "{{user `disk_size`}}",
+    "disk_type_id": "{{user `disk_type_id`}}",
+    "floppy_files": [
+        "{{user `autounattend`}}",
+        "./floppy_files/Windows-10-Template/scripts/sysprep.bat",
+        "./floppy_files/Windows-10-Template/scripts/enable-winrm.ps1",
+        "./floppy_files/Windows-10-Template/answer_files/unattend.xml",
+        "./floppy_files/Windows-10-Template/scripts/ConfigureRemotingForAnsible.ps1",
+        "./floppy_files/Windows-10-Template/scripts/disable-screensaver.ps1",
+        "./floppy_files/Windows-10-Template/scripts/enable-rdp.bat",
+        "./floppy_files/Windows-10-Template/scripts/microsoft-updates.bat",
+        "./floppy_files/Windows-10-Template/scripts/win-updates.ps1"
+    ],
+    "guest_os_type": "windows9srv-64",
+    "headless": "{{user `headless`}}",
+    "iso_checksum_type": "{{user `iso_checksum_type`}}",
+    "iso_url": "{{user `iso_url`}}",
+    "memory": 2048,
+    "shutdown_command": "a:/sysprep.bat",
+    "type": "vmware-iso",
+    "version": 16,
+    "vm_name": "Windows-10-Template",
+    "output_directory": "{{user `output_directory`}}",
+    "vmx_data": {
+        "RemoteDisplay.vnc.enabled": "false",
+        "RemoteDisplay.vnc.port": "5900",
+        "vhv.enable": "TRUE",
+        "vpmc.enable": "TRUE"
+    },
+    "vmx_remove_ethernet_interfaces": false,
+    "display_name": "Windows-10-Template",
+    "vnc_port_max": 5980,
+    "vnc_port_min": 5900,
+    "winrm_password": "ansible",
+    "winrm_timeout": "{{user `winrm_timeout`}}",
+    "winrm_username": "ansible"
+    }
+  ]
+}
