@@ -30,6 +30,15 @@
                 <LogonCount>1</LogonCount>
                 <Username>ansible</Username>
             </AutoLogon>
+
+            <FirstLogonCommands>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File c:\windows\temp\sethostname.ps1"</CommandLine>
+                    <Description>Rename host</Description>
+                    <Order>1</Order>
+                </SynchronousCommand>
+            </FirstLogonCommands>
+
         </component>
     </settings>
     <settings pass="specialize">

@@ -16,7 +16,8 @@
         "execute_command": "{{ .Vars }} cmd /c \"{{ .Path }}\"",
         "scripts": [
           "./floppy_files/Windows-Server-2019-Template/scripts/vm-guest-tools.bat",
-          "./floppy_files/Windows-Server-2019-Template/scripts/enable-rdp.bat"
+          "./floppy_files/Windows-Server-2019-Template/scripts/enable-rdp.bat",
+          "./floppy_files/Windows-Server-2019-Template/scripts/copy-sethostname.bat"
         ],
         "type": "windows-shell"
       }
@@ -43,7 +44,9 @@
         "./floppy_files/Windows-Server-2019-Template/scripts/disable-screensaver.ps1",
         "./floppy_files/Windows-Server-2019-Template/scripts/enable-rdp.bat",
         "./floppy_files/Windows-Server-2019-Template/scripts/microsoft-updates.bat",
-        "./floppy_files/Windows-Server-2019-Template/scripts/win-updates.ps1"
+        "./floppy_files/Windows-Server-2019-Template/scripts/win-updates.ps1",
+        "./floppy_files/Windows-Server-2019-Template/scripts/sethostname.ps1",
+        "./floppy_files/Windows-Server-2019-Template/scripts/copy-sethostname.bat"
     ],
     "guest_os_type": "windows9srv-64",
     "headless": "{{user `headless`}}",

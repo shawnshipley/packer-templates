@@ -165,8 +165,13 @@
                     <Description>Disable Hibernation Mode</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c wmic useraccount where "name='ansible'" set PasswordExpires=FALSE</CommandLine>
+                    <CommandLine>%SystemRoot%\System32\reg.exe ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce\ /v "rename" /t REG_SZ /d "cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File c:\windows\temp\sethostname.ps1"</CommandLine>
                     <Order>10</Order>
+                    <Description>Add RunOnce script to rename host on first boot</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c wmic useraccount where "name='ansible'" set PasswordExpires=FALSE</CommandLine>
+                    <Order>11</Order>
                     <Description>Disable password expiration for ansible user</Description>
                 </SynchronousCommand>               
                 <!--
